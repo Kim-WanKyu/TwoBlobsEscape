@@ -5,42 +5,47 @@ using UnityEngine;
 
 public class PlayerSwapper : MonoBehaviour
 {
-    [SerializeField] private GameObject playerBlue; //�Ķ�.
-    [SerializeField] private GameObject playerPink;
-    private GameObject nowPlayer;
+    [SerializeField] private GameObject playerBlue; // 파랑.
+    [SerializeField] private GameObject playerPink; // 분홍.
+    private GameObject nowPlayer;   // 현재 플레이어.
+
     public GameObject GetPlayerBlue() { return playerBlue; }
     public GameObject GetPlayerPink() { return playerPink; }
     public GameObject GetNowPlayer() { return nowPlayer; }
 
+    // 플레이어의 활성화/비활성화 된 색
     private Color activatedColor;
     private Color deactivatedColor;
 
-    // Start is called before the first frame update
+
     void Awake()
     {
+        // 플레이어의 활성화/비활성화 된 색 초기화.
         activatedColor = new Color(1, 1, 1);
         deactivatedColor = new Color(100 / 255f, 100 / 255f, 100 / 255f);
 
+        // 각 플레이어의 색을 초기화. (파랑이를 활성화, 분홍이를 비활성화로).
         playerBlue.GetComponent<SpriteRenderer>().color = activatedColor;
         playerPink.GetComponent<SpriteRenderer>().color = deactivatedColor;
 
+        // 현재 플레이어를 파랑이로 설정.
         nowPlayer = playerBlue;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // C키(플레이어 변경 키) 누르면,
         if (Input.GetKeyDown(KeyCode.C))
         {
-            // cancel walking animation to previous player.
+            // 이전 플레이어의 걷기 애니메이션 종료.
             nowPlayer.GetComponent<Animator>().SetBool("isWalking", false);
-            // change previous player's color to deactivated color.
+            // 이전 플레이어의 색을 비활성화된 색으로 변경.
             nowPlayer.GetComponent<SpriteRenderer>().color = deactivatedColor;
 
-            // swap player.
+            // 플레이어 변경.
             nowPlayer = nowPlayer == playerBlue ? playerPink : playerBlue;
 
-            // change current player's color to activated color.
+            // 현재 플레이어의 색을 활성화된 색으로 변경.
             nowPlayer.GetComponent<SpriteRenderer>().color = activatedColor;
         }
     }
