@@ -24,12 +24,12 @@ public class OpenCloseDoorSwitch : SwitchObject
                 // 해당 문이 열려있으면,
                 if (door.IsOpenedDoor() == true)
                 {
-                    Debug.Log("문 열음");
+                    Debug.Log("문 닫음");
                     door.CloseDoor();   // 문을 닫음.
                 }
                 else
                 {
-                    Debug.Log("문 닫음");
+                    Debug.Log("문 열음");
                     door.OpenDoor();    // 아니면, 문을 열음.
                 }
             }

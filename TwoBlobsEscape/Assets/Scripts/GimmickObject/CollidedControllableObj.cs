@@ -7,13 +7,13 @@ using UnityEngine;
 // 자신과 충돌한 조작가능한 오브젝트를 관리(저장)하는 클래스.
 public class CollidedControllableObj : MonoBehaviour
 {
-    private LinkedList<GameObject> collidedObject;  // 충돌한 오브젝트들 리스트.
-    public LinkedList<GameObject> GetCollidedObjects() { return collidedObject; }
+    private LinkedList<GameObject> collidedObjects;  // 충돌한 오브젝트들 리스트.
+    public LinkedList<GameObject> GetCollidedObjects() { return collidedObjects; }
 
     // 처음에는 충돌된 오브젝트 리스트를 초기화.
     private void Awake()
     {
-        collidedObject = new LinkedList<GameObject>();
+        collidedObjects = new LinkedList<GameObject>();
     }
 
     // collider(trigger) 가 접촉되면,
@@ -24,7 +24,7 @@ public class CollidedControllableObj : MonoBehaviour
         if (collision.TryGetComponent<IControlObject>(out _))
         {
             // '충돌된 오브젝트들 리스트'에 충돌한 해당 오브젝트를 추가.
-            collidedObject.AddLast(collision.gameObject);
+            collidedObjects.AddLast(collision.gameObject);
         }
     }
 
@@ -33,9 +33,9 @@ public class CollidedControllableObj : MonoBehaviour
     {
         // Debug.Log("OnTriggerExit2D : " + collision.name);
         // 충돌 해제된 오브젝트가 리스트에 있으면, 리스트에서 지움.
-        if (collidedObject.Contains(collision.gameObject))
+        if (collidedObjects.Contains(collision.gameObject))
         {
-            collidedObject.Remove(collision.gameObject);
+            collidedObjects.Remove(collision.gameObject);
         }
     }
 }
