@@ -33,7 +33,7 @@ public class PlayerSwapper : MonoBehaviour
     void Update()
     {
         // C키(플레이어 변경 키) 누르면,
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeySetting.keys[KeyAction.SWAP]))
         {
             SwapPlayer();
         }

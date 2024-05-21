@@ -17,8 +17,8 @@ public class ManipulateObject : MonoBehaviour
 
     private void Update()
     {
-        // 조작 오브젝트 상호작용키(F)키를 누르면, && 조작 중이 아니면,
-        if (Input.GetKeyDown(KeyCode.F) && isControlling == false)
+        // 상호작용키를 누르면, && 조작 중이 아니면,
+        if (Input.GetKeyDown(KeySetting.keys[KeyAction.INTERACTION]) && isControlling == false)
         {
             ManipulateObj();
         }

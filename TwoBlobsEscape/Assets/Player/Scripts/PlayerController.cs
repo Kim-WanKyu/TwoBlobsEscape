@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeySetting.keys[KeyAction.JUMP]))
         {
             Jump(); // 플레이어 점프.
         }
@@ -36,11 +36,11 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 direction = Vector2.zero;
         // 키보드 입력 받아서 방향값을 설정.
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeySetting.keys[KeyAction.RIGHT]))
         {
             direction = Vector2.right;
         }
-        else if (Input.GetKey(KeyCode.LeftArrow))
+        else if (Input.GetKey(KeySetting.keys[KeyAction.LEFT]))
         {
             direction = Vector2.left;
         }
