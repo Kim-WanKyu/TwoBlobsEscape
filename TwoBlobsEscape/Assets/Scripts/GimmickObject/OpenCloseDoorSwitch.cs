@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // 문을 열고닫는 스위치 클래스.
-public class OpenCloseDoorSwitch : SwitchObject
+public class OpenCloseDoorSwitch : OnOffSwitch
 {
     // 이 버튼이 열고 닫을 문 오브젝트들의 정보들과 메소드 들어있음.
     [SerializeField] private Door[] doors;
 
-    public override void ControlSwitch()
+    public override void ControlOnOffSwitch()
     {
         OpenCloseDoor();
     }
