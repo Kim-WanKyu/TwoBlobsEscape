@@ -695,7 +695,7 @@ Tilemap:
       - {fileID: 21300000, guid: 706474e9d1c3c419ebb793c817a1d081, type: 3}
       - {fileID: 21300000, guid: d7bc4e16b28d34d808d751ecbfdd250e, type: 3}
       - {fileID: 21300000, guid: a1321aa25aa354ba1abb1e94a3b5fd8b, type: 3}
-      m_AnimationSpeed: 6
+      m_AnimationSpeed: 6.0000005
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 13, y: -5, z: 0}
@@ -3967,11 +3967,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5936562775817101121, guid: dd60e1122810a60459d8c7faf33ce729, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.0074115
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5936562775817101121, guid: dd60e1122810a60459d8c7faf33ce729, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.7130129
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5936562775817101121, guid: dd60e1122810a60459d8c7faf33ce729, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4013,6 +4013,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5936562775817101132, guid: dd60e1122810a60459d8c7faf33ce729, type: 3}
+      propertyPath: baseButtonSprite
+      value: 
+      objectReference: {fileID: -375776261, guid: 1ff621bafaff38f4ebcc1baf669ab883, type: 3}
+    - target: {fileID: 5936562775817101132, guid: dd60e1122810a60459d8c7faf33ce729, type: 3}
+      propertyPath: pushedButtonSprite
+      value: 
+      objectReference: {fileID: 621934522, guid: 1ff621bafaff38f4ebcc1baf669ab883, type: 3}
     - target: {fileID: 5936562775817101132, guid: dd60e1122810a60459d8c7faf33ce729, type: 3}
       propertyPath: doors.Array.data[0]
       value: 
