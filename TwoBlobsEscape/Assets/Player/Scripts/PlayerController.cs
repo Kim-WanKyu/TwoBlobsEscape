@@ -9,26 +9,36 @@ public class PlayerController : MonoBehaviour
     private float speed;        // 이동속도.
     private float jumpPower;    //점프력.
 
+    private bool isDead;    // 플레이어가 죽었는지 저장하는 변수. (죽으면 true).
+
     private void Awake()
     {
         playerSwapper = GetComponent<PlayerSwapper>();
 
         speed = 7f;
         jumpPower = 21.5f;
+
+        isDead = false;
     }
 
     private void Update()
     {
-        if (Input.GetKey(KeySetting.keys[KeyAction.JUMP]))
+        if (!isDead)
         {
-            Jump(); // 플레이어 점프.
+            if (Input.GetKey(KeySetting.keys[KeyAction.JUMP]))
+            {
+                Jump(); // 플레이어 점프.
+            }
         }
     }
 
     private void FixedUpdate()
     {
-        Move(); // 플레이어 이동.
-        LandingPlatform();  // 플레이어 착지.
+        if (!isDead)
+        {
+            Move(); // 플레이어 이동.
+            LandingPlatform();  // 플레이어 착지.
+        }
     }
 
     // 플레이어 이동.
@@ -111,6 +121,15 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(hitPos + new Vector2(playerSizeX / 2f, 0.1f), Vector2.down * 0.2f, hitColor);
         Debug.DrawRay(hitPos + new Vector2(playerSizeX / 2f, 0.1f), Vector2.left * playerSizeX, hitColor);
         Debug.DrawRay(hitPos + new Vector2(playerSizeX / 2f, -0.1f), Vector2.left * playerSizeX, hitColor);
+    }
+
+    // 플레이어 죽음.
+    public void Die()
+    {
+        isDead = true;
+        Debug.Log("플레이어 죽음");
+
+        gameObject.SetActive(false);
     }
 
 }
