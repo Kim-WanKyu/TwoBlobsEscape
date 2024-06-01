@@ -36,6 +36,7 @@ public class KeyManager : MonoBehaviour
 
     private void Awake()
     {
+        KeySetting.keys.Clear();    // 키세팅 초기화.
         // 초기에 키세팅을 디폴트 키값으로 초기화.
         for (int i = 0; i < (int)KeyAction.KEYCOUNT; i++)
         {

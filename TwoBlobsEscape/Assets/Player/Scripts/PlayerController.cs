@@ -9,21 +9,18 @@ public class PlayerController : MonoBehaviour
     private float speed;        // 이동속도.
     private float jumpPower;    //점프력.
 
-    private bool isDead;    // 플레이어가 죽었는지 저장하는 변수. (죽으면 true).
-
     private void Awake()
     {
         playerSwapper = GetComponent<PlayerSwapper>();
 
         speed = 7f;
         jumpPower = 21.5f;
-
-        isDead = false;
     }
 
     private void Update()
     {
-        if (!isDead)
+        // 일시정지 상태가 아닐 때에만, 플레이어 조작 가능. (게임오버나 게임 클리어 시도 일시정지가 적용됨).
+        if (!GameManager.instance.IsPause)
         {
             if (Input.GetKey(KeySetting.keys[KeyAction.JUMP]))
             {
@@ -34,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isDead)
+        if (!GameManager.instance.IsPause)
         {
             Move(); // 플레이어 이동.
             LandingPlatform();  // 플레이어 착지.
@@ -102,7 +99,7 @@ public class PlayerController : MonoBehaviour
             // 바닥을 밟으면, collider가 null이 아님.
             if (raycastHit2D.collider != null)
             {
-                Debug.Log("standing platform is : " + raycastHit2D.collider.name);
+                // Debug.Log("standing platform is : " + raycastHit2D.collider.name);
                 // 바닥을 밟으면, 애니메이션의 "isJumping"값을 false로 설정.
                 playerSwapper.GetNowPlayer().GetComponent<Animator>().SetBool("isJumping", false);
                 // 바닥을 밟으면, 플레이어의 속도를 0으로.
@@ -126,10 +123,9 @@ public class PlayerController : MonoBehaviour
     // 플레이어 죽음.
     public void Die()
     {
-        isDead = true;
         Debug.Log("플레이어 죽음");
 
-        gameObject.SetActive(false);
+        GameManager.instance.GameOver();    // 게임매니저에 게임오버 알림.
     }
 
 }
