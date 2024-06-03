@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 // 자신과 충돌한 조작가능한 오브젝트를 관리(저장)하는 클래스.
