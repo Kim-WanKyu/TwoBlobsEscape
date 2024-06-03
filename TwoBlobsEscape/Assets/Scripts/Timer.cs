@@ -22,7 +22,7 @@ public class Timer : MonoBehaviour
         // 일시정지 상태가 아닐 때에만, 시간을 더해주고 화면에 출력함. (시간이 멈추면 결과가 같기 때문에, 갱신할 필요가 없음.)
         if (!GameManager.instance.IsPause)
         {
-            time += Time.deltaTime;
+            time += Time.unscaledDeltaTime; //timeScale 이 0이어도 타이머가 흐르도록 unscaledDeltaTime.
 
             int timeInt = Mathf.FloorToInt(time);
             

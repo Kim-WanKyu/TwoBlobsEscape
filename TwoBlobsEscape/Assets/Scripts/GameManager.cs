@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public bool IsGameover { get; private set; }    // 게임 오버 상태인지 (게임오버 시 true)
     public bool IsClear { get; private set; }       // 게임 클리어 상태인지 (게임클리어 시 true)
     public bool IsPause { get; private set; }       // 일시정지 상태인지 (일시정지 시 true)
+    public bool IsPlayingMiniGame { get; private set; } // 미니게임 중인지 (미니게임 진행 중일 시 true)
     public int LevelCount { get; private set; }     // 스테이지의 개수.
 
     private void Awake()
@@ -70,6 +71,20 @@ public class GameManager : MonoBehaviour
     public void GameResume()
     {
         IsPause = false;
+        Time.timeScale = 1f;    // 시간 흐르는 속도 1으로. (1배속)
+    }
+
+    // 미니게임 시작.
+    public void StartMiniGame()
+    {
+        IsPlayingMiniGame = true;
+        Time.timeScale = 0f;    // 시간 흐르는 속도 0으로. (멈춤)
+    }
+
+    // 미니게임 종료.
+    public void StopMiniGame()
+    {
+        IsPlayingMiniGame = false;
         Time.timeScale = 1f;    // 시간 흐르는 속도 1으로. (1배속)
     }
 
