@@ -25,8 +25,9 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            // 같은 씬으로 다시 이동하면, Awake()문이 실행되며 오브젝트가 또 생성되므로, 오브젝트가 중복됨.
             Debug.LogWarning("씬에 두 개 이상의 게임매니저가 존재합니다!");
-            Destroy(gameObject);    // 중복되므로 지워줌.
+            Destroy(gameObject);    // 중복되므로 하나만 남도록 지워줌.
             return;
         }
 
