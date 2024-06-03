@@ -158,7 +158,48 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("플레이어 죽음");
 
+        PlayerDeathAnim();
+
         GameManager.instance.GameOver();    // 게임매니저에 게임오버 알림.
     }
 
+    // 플레이어 죽음 시 플레이어를 부드럽게 사라지도록 하는 메소드.
+    private void PlayerDeathAnim()
+    {
+        StartCoroutine(PlayerDeathAnimCoroutine());
+    }
+
+    // 플레이어 죽음 시 플레이어를 부드럽게 사라지도록 하는 코루틴.
+    private IEnumerator PlayerDeathAnimCoroutine()
+    {
+        Color fromColor = new Color(1f, 1f, 1f, 1f);    //흰색 불투명.
+        Color toColor = new Color(0f, 0f, 0f, 0f);      //검은색 투명.
+
+        GameObject playerBlue = playerSwapper.GetPlayerBlue();
+        GameObject playerPink = playerSwapper.GetPlayerPink();
+
+        SpriteRenderer blueSpriteRenderer = playerBlue.GetComponent<SpriteRenderer>();
+        SpriteRenderer pinkSpriteRenderer = playerPink.GetComponent<SpriteRenderer>();
+
+        float time = 0f;
+        float duration = 1f;
+        while (time < duration)
+        {
+            // Lerp 함수를 이용하여 부드러운 색 변경이 가능하게 함.
+            blueSpriteRenderer.color = Color.Lerp(fromColor, toColor, time / duration);
+            pinkSpriteRenderer.color = Color.Lerp(fromColor, toColor, time / duration);
+
+            time += Time.unscaledDeltaTime;
+
+            yield return null;
+        }
+
+        // while 문 종료시 확실하게 toColor로 변경되도록 함.
+        blueSpriteRenderer.color = toColor;
+        pinkSpriteRenderer.color = toColor;
+
+        // 스프라이트 이미지 상으로 사라지게 한 다음 오브젝트를 비활성화.
+        playerBlue.SetActive(false);
+        playerPink.SetActive(false);
+    }
 }

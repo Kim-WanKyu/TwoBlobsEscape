@@ -6,6 +6,8 @@ public class PlayerSwapper : MonoBehaviour
 {
     [SerializeField] private GameObject playerBlue; // 파랑이.
     [SerializeField] private GameObject playerPink; // 분홍이.
+    public GameObject GetPlayerBlue() { return playerBlue; }
+    public GameObject GetPlayerPink() { return playerPink; }
 
     private GameObject nowPlayer;   // 현재 플레이어.
     public GameObject GetNowPlayer() { return nowPlayer; }
@@ -31,10 +33,14 @@ public class PlayerSwapper : MonoBehaviour
 
     void Update()
     {
-        // C키(플레이어 변경 키) 누르면,
-        if (Input.GetKeyDown(KeySetting.keys[KeyAction.SWAP]))
+        // 일시정지 상태가 아닐 때에만, 플레이어 스왑 가능. (게임오버나 게임 클리어 시도 일시정지가 적용됨).
+        if (!GameManager.instance.IsPause)
         {
-            SwapPlayer();
+            // C키(플레이어 변경 키) 누르면,
+            if (Input.GetKeyDown(KeySetting.keys[KeyAction.SWAP]))
+            {
+                SwapPlayer();
+            }
         }
     }
 
