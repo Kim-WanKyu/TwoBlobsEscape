@@ -69,8 +69,6 @@ public class StartButtons : MonoBehaviour
     // (QuitButton 버튼).
     public void QuitButton()
     {
-        Debug.Log("게임종료");
-        // 프로그램 종료. 
-        Application.Quit();
+        GameManager.instance.GameQuit();
     }
 }

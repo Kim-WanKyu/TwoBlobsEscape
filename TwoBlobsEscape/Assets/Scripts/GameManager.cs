@@ -73,4 +73,16 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;    // 시간 흐르는 속도 1으로. (1배속)
     }
 
+    // 게임 종료. (프로그램 종료)
+    public void GameQuit()
+    {
+        Debug.Log("모든 시간 기록 삭제");
+        //PlayerPrefs에 저장된 모든 데이터 삭제.
+        PlayerPrefs.DeleteAll();
+
+        Debug.Log("게임종료");
+        // 프로그램 종료.
+        Application.Quit(); // 빌드 안하고 테스트 시에는 작동x.
+    }
+
 }
