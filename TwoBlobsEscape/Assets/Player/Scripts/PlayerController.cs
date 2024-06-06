@@ -19,8 +19,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        // 일시정지 상태가 아닐 때에만, 플레이어 조작 가능. (게임오버나 게임 클리어 시도 일시정지가 적용됨).
-        if (!GameManager.instance.IsPause)
+        // 일시정지 상태 or 미니게임 중인 상태가 아닐 때에만, 플레이어 조작 가능. (게임오버나 게임 클리어 시도 일시정지가 적용됨).
+
+        if (!(GameManager.instance.IsPause || GameManager.instance.IsPlayingMiniGame))
         {
             if (Input.GetKey(KeySetting.keys[KeyAction.JUMP]))
             {
@@ -31,7 +32,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!GameManager.instance.IsPause)
+        if (!(GameManager.instance.IsPause || GameManager.instance.IsPlayingMiniGame))
         {
             Move(); // 플레이어 이동.
             LandingPlatform();  // 플레이어 착지.
