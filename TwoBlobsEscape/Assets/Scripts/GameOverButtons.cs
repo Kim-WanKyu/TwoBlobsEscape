@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GameOverButtons : MonoBehaviour
 {
+    private SfxManager sfxManager;
+
     [SerializeField]
     private GameObject gameOverAreaObject;      // 게임 오버 영역 오브젝트. (게임 오버 최상위 오브젝트)
 
@@ -15,6 +17,8 @@ public class GameOverButtons : MonoBehaviour
 
     void Awake()
     {
+        sfxManager = GameManager.instance.gameObject.transform.GetChild(0).GetComponent<SfxManager>();
+
         if (gameOverAreaObject != null)
         {
             gameOverButtonsObject = gameOverAreaObject.transform.GetChild(1).gameObject;
@@ -22,8 +26,8 @@ public class GameOverButtons : MonoBehaviour
             restartButton = gameOverButtonsObject.transform.GetChild(0).GetComponent<Button>();
             homeButton    = gameOverButtonsObject.transform.GetChild(1).GetComponent<Button>();
 
-            restartButton.onClick.AddListener(SceneController.Restart);
-            homeButton.onClick.AddListener(SceneController.GotoHome);
+            restartButton.onClick.AddListener(Restart);
+            homeButton.onClick.AddListener(GotoHome);
 
             if (gameOverAreaObject.activeSelf == true)
             {
@@ -32,4 +36,17 @@ public class GameOverButtons : MonoBehaviour
         }
     }
 
+    public void Restart()
+    {
+        sfxManager.PlayUIButtonClickSound();
+        sfxManager.PlayStageStartSound();
+        SceneController.Restart();
+    }
+
+    public void GotoHome()
+    {
+        sfxManager.PlayUIButtonClickSound();
+        sfxManager.PlayStageStartSound();
+        SceneController.GotoHome();
+    }
 }
