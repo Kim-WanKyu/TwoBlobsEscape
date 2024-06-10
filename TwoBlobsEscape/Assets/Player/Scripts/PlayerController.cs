@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private SfxManager sfxManager; // 효과음 재생을 위한 매니저 추가.
+
     private PlayerSwapper playerSwapper;    // 현재 플레이어를 가져오기 위해 추가.
 
     private float speed;        // 이동속도.
@@ -12,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         playerSwapper = GetComponent<PlayerSwapper>();
+        sfxManager = GameManager.instance.gameObject.transform.GetChild(0).GetComponent<SfxManager>();
 
         speed = 7f;
         jumpPower = 21.5f;
@@ -65,11 +68,20 @@ public class PlayerController : MonoBehaviour
         {
             nowPlayer.GetComponent<SpriteRenderer>().flipX = (direction == Vector2.left);    // 스프라이트 방향 설정. 플레이어의 방향이 왼쪽이면 스프라이트를 flip함.
             nowPlayer.GetComponent<Animator>().SetBool("isWalking", true);
+
+            if (IsLanding())    // 땅에 있을 때,
+            {
+                // 걷기 효과음 재생.
+                sfxManager.PlayWalkSound();
+            }
         }
         else
         {
             // 그렇지 않으면, 정지이므로, 걷기 애니메이션 끄기.
             nowPlayer.GetComponent<Animator>().SetBool("isWalking", false);
+
+            // 걷기 효과음 정지.
+            sfxManager.StopWalkSound();
         }
     }
 
@@ -86,6 +98,9 @@ public class PlayerController : MonoBehaviour
     // 점프 코루틴.
     private IEnumerator JumpCoroutine(GameObject nowPlayer)
     {
+        // 점프 효과음 재생.
+        sfxManager.PlayJumpSound();
+
         // 점프 애니메이션 실행.
         nowPlayer.GetComponent<Animator>().SetBool("isJumping", true);
 
@@ -158,6 +173,11 @@ public class PlayerController : MonoBehaviour
     public void Die()
     {
         Debug.Log("플레이어 죽음");
+
+        // 걷기 효과음 종료.
+        sfxManager.StopWalkSound();
+        // 죽음 효과음 재생.
+        sfxManager.PlayDeathSound();
 
         PlayerDeathAnim();
 

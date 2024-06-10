@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GameClearButtons : MonoBehaviour
 {
+    private SfxManager sfxManager;
+
     [SerializeField]
     private GameObject gameClearAreaObject;     // 게임 클리어 영역 오브젝트. (게임 클리어 최상위 오브젝트)
 
@@ -15,6 +17,8 @@ public class GameClearButtons : MonoBehaviour
 
     void Awake()
     {
+        sfxManager = GameManager.instance.gameObject.transform.GetChild(0).GetComponent<SfxManager>();
+
         if (gameClearAreaObject != null)
         {
             gameClearButtonsObject = gameClearAreaObject.transform.GetChild(2).gameObject;
@@ -23,14 +27,34 @@ public class GameClearButtons : MonoBehaviour
             homeButton    = gameClearButtonsObject.transform.GetChild(1).GetComponent<Button>();
             nextButton    = gameClearButtonsObject.transform.GetChild(2).GetComponent<Button>();
 
-            restartButton.onClick.AddListener(SceneController.Restart);
-            homeButton.onClick.AddListener(SceneController.GotoHome);
-            nextButton.onClick.AddListener(SceneController.GotoNext);
+            restartButton.onClick.AddListener(Restart);
+            homeButton.onClick.AddListener(GotoHome);
+            nextButton.onClick.AddListener(GotoNext);
 
             if (gameClearAreaObject.activeSelf == true)
             {
                 gameClearAreaObject.SetActive(false);
             }
         }
+    }
+    public void Restart()
+    {
+        sfxManager.PlayUIButtonClickSound();
+        sfxManager.PlayStageStartSound();
+        SceneController.Restart();
+    }
+
+    public void GotoHome()
+    {
+        sfxManager.PlayUIButtonClickSound();
+        sfxManager.PlayStageStartSound();
+        SceneController.GotoHome();
+    }
+
+    public void GotoNext()
+    {
+        sfxManager.PlayUIButtonClickSound();
+        sfxManager.PlayStageStartSound();
+        SceneController.GotoNext();
     }
 }

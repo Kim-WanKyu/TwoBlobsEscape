@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class OptionButtons : MonoBehaviour
 {
+    private SfxManager sfxManager;
+
     [SerializeField]
     private GameObject optionObject;        // 옵션 오브젝트 (옵션 최상위 오브젝트)
 
@@ -15,6 +17,8 @@ public class OptionButtons : MonoBehaviour
 
     private void Awake()
     {
+        sfxManager = GameManager.instance.gameObject.transform.GetChild(0).GetComponent<SfxManager>();
+
         if (optionObject != null)
         {
             optionButtonObject = optionObject.transform.GetChild(0).gameObject;
@@ -31,15 +35,27 @@ public class OptionButtons : MonoBehaviour
             optionExitButton = optionPanelObject.transform.GetChild(2).GetComponent<Button>();
 
             optionExitButton.onClick.AddListener(CloseOptionPanel);
-            restartButton.onClick.AddListener(SceneController.Restart);
-            homeButton.onClick.AddListener(SceneController.GotoHome);
+            restartButton.onClick.AddListener(Restart);
+            homeButton.onClick.AddListener(GotoHome);
 
-            CloseOptionPanel();
+            if (optionPanelObject != null)
+            {
+                if (optionPanelObject.activeSelf == true)
+                {
+                    optionButtonObject.SetActive(true);
+
+                    optionPanelObject.SetActive(false);
+                    GameManager.instance.GameResume();
+                }
+            }
         }
     }
 
     public void OpenOptionPanel()
     {
+        sfxManager.PlayUIButtonClickSound();
+        sfxManager.PlayUIWindowOnSound();
+
         if (optionPanelObject != null)
         {
             if (optionPanelObject.activeSelf == false)
@@ -54,6 +70,9 @@ public class OptionButtons : MonoBehaviour
 
     public void CloseOptionPanel()
     {
+        sfxManager.PlayUIButtonClickSound();
+        sfxManager.PlayUIWindowOffSound();
+
         if (optionPanelObject != null)
         {
             if (optionPanelObject.activeSelf == true)
@@ -64,6 +83,20 @@ public class OptionButtons : MonoBehaviour
                 GameManager.instance.GameResume();
             }
         }
+    }
+
+    public void Restart()
+    {
+        sfxManager.PlayUIButtonClickSound();
+        sfxManager.PlayStageStartSound();
+        SceneController.Restart();
+    }
+
+    public void GotoHome()
+    {
+        sfxManager.PlayUIButtonClickSound();
+        sfxManager.PlayStageStartSound();
+        SceneController.GotoHome();
     }
 
 }

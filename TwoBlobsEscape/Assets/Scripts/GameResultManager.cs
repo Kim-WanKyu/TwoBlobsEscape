@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameResultManager : MonoBehaviour
 {
+    private SfxManager sfxManager;
+
     [SerializeField] private Goal[] Goals;
 
     private GameObject gameResultUI;
@@ -22,6 +24,8 @@ public class GameResultManager : MonoBehaviour
 
     private void Awake()
     {
+        sfxManager = GameManager.instance.gameObject.transform.GetChild(0).GetComponent<SfxManager>();
+
         waitSec = new WaitForSecondsRealtime(0.2f);
 
         gameResultUI = transform.GetChild(1).gameObject;
@@ -63,6 +67,8 @@ public class GameResultManager : MonoBehaviour
             // 게임이 끝났으면, (클리어/오버) 결과 창을 띄우고, 코루틴 종료.
             if (GameManager.instance.IsClear)
             {
+                sfxManager.StopWalkSound();
+                sfxManager.PlayStageClearSound();
                 RecordTime();
                 gameClearTimeTexts.SetActive(true);
                 gameClearUI.SetActive(true);

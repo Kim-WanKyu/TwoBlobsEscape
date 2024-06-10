@@ -5,6 +5,8 @@ using UnityEngine;
 // 문 클래스.
 public class Door : MonoBehaviour
 {
+    private SfxManager sfxManager;
+
     private Collider2D doorCollider2D;                  // 문 오브젝트 콜라이더.
     private SpriteRenderer doorSpriteRenderer;          // 문 오브젝트의 스프라이트렌더러.
     [SerializeField] private Sprite openedDoorSprite;   // 열린 문 스프라이트.
@@ -14,6 +16,8 @@ public class Door : MonoBehaviour
 
     private void Awake()
     {
+        sfxManager = GameManager.instance.gameObject.transform.GetChild(0).GetComponent<SfxManager>();
+
         // 오브젝트의 콜라이더와 스프라이트렌더러 가져옴.
         doorCollider2D = GetComponent<Collider2D>();
         doorSpriteRenderer = GetComponent<SpriteRenderer>();
@@ -21,17 +25,23 @@ public class Door : MonoBehaviour
         // 변수 초기값에 따라 문의 상태를 설정.
         if (isOpened == true)   // 변수 상태가 true이면, 열어줌.
         {
-            OpenDoor();
+            isOpened = true;
+            doorCollider2D.enabled = false; // 지나갈 수 있도록 콜라이더 꺼주고,
+            doorSpriteRenderer.sprite = openedDoorSprite;   // 스프라이트를 열린 문 이미지로.
         }
         else
         {
-            CloseDoor();
+            isOpened = false;
+            doorCollider2D.enabled = true; // 지나갈 수 없도록 콜라이더 켜주고,
+            doorSpriteRenderer.sprite = closedDoorSprite;   // 스프라이트를 닫힌 문 이미지로.
         }
     }
 
     // 문을 여는 메소드.
     public void OpenDoor()
     {
+        sfxManager.PlayDoorOpenSound();
+
         isOpened = true;
         doorCollider2D.enabled = false; // 지나갈 수 있도록 콜라이더 꺼주고,
         doorSpriteRenderer.sprite = openedDoorSprite;   // 스프라이트를 열린 문 이미지로.
@@ -40,6 +50,8 @@ public class Door : MonoBehaviour
     // 문을 닫는 메소드.
     public void CloseDoor()
     {
+        sfxManager.PlayDoorCloseSound();
+
         isOpened = false;
         doorCollider2D.enabled = true; // 지나갈 수 없도록 콜라이더 켜주고,
         doorSpriteRenderer.sprite = closedDoorSprite;   // 스프라이트를 닫힌 문 이미지로.

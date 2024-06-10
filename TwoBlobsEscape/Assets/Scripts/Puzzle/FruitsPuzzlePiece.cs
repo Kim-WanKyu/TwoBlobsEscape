@@ -1,12 +1,10 @@
-using Mono.Cecil;
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class FruitsPuzzlePiece : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler
 {
+    private SfxManager sfxManager;
+
     public float snapOffset;
     private FruitsPuzzle puzzle;
     private GameObject puzzlePosSet;
@@ -17,6 +15,7 @@ public class FruitsPuzzlePiece : MonoBehaviour, IDragHandler, IEndDragHandler, I
     private void Awake()
     {
         puzzle = transform.parent.parent.GetComponent<FruitsPuzzle>();
+        sfxManager = GameManager.instance.gameObject.transform.GetChild(0).GetComponent<SfxManager>();
     }
     private void Start()
     {
@@ -50,6 +49,7 @@ public class FruitsPuzzlePiece : MonoBehaviour, IDragHandler, IEndDragHandler, I
     // 드래그 시작.
     public void OnBeginDrag(PointerEventData eventData)
     {
+        sfxManager.PlayPuzzlePieceDragSound();
         // 지금 드래그하는 퍼즐 조각이 가장 위로 올 수 있도록 처리.
         transform.SetParent(puzzleMovingSet.transform);
     }
@@ -66,11 +66,13 @@ public class FruitsPuzzlePiece : MonoBehaviour, IDragHandler, IEndDragHandler, I
     {
         if (!CheckSnapPuzzle())
         {
+            sfxManager.PlayPuzzlePieceDropSound();
             // 퍼즐 조각을 스냅시키려는 위치에 조각이 있거나 퍼즐을 맞추는 위치가 아니면, 스냅 해제. (퍼즐 셋으로)
             transform.SetParent(puzzlePieceSet.transform);
         }
         else
         {
+            sfxManager.PlayPuzzlePieceSnapSound();
             // 퍼즐 완성 확인.
             puzzle.CheckClear();
         }

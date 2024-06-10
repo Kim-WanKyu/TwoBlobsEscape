@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class FruitsPuzzle : MonoBehaviour
 {
+    SfxManager sfxManager;
+
     public bool IsClear { get; private set; }
     public void SetClear(bool value) { IsClear = value; }
 
@@ -17,6 +19,8 @@ public class FruitsPuzzle : MonoBehaviour
 
     private void Awake()
     {
+        sfxManager = GameManager.instance.gameObject.transform.GetChild(0).GetComponent<SfxManager>();
+
         PuzzlePosSet = transform.GetChild(0).gameObject;
         PuzzlePieceSet = transform.GetChild(1).gameObject;
         PuzzleMovingSet = transform.GetChild(2).gameObject;
@@ -91,6 +95,8 @@ public class FruitsPuzzle : MonoBehaviour
                 return;
             }
         }
+
+        sfxManager.PlayPuzzleClearSound();
 
         IsClear = true;
     }

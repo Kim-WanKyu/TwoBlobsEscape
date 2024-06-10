@@ -5,6 +5,8 @@ using UnityEngine;
 // (조작가능한 오브젝트인 버튼)의 상위 추상 클래스. (이지만, IControlObject 상속 x => 상호작용을 통해 동작하는 것이 아니라, 플레이어와 충돌 시 동작하기 때문.)
 public abstract class ButtonObject : MonoBehaviour
 {
+    private SfxManager sfxManager;
+
     private LinkedList<GameObject> collidedPlayers;  // 충돌한 플레이어들 리스트.
     private SpriteRenderer buttonSpriteRenderer;            // 버튼 오브젝트의 스프라이트렌더러.
     [SerializeField] private Sprite baseButtonSprite;       // 기본 버튼 스프라이트.
@@ -13,6 +15,8 @@ public abstract class ButtonObject : MonoBehaviour
     // 처음에는 충돌한 플레이어들 리스트를 초기화.
     private void Awake()
     {
+        sfxManager = GameManager.instance.gameObject.transform.GetChild(0).GetComponent<SfxManager>();
+
         collidedPlayers = new LinkedList<GameObject>();
 
         // 버튼 오브젝트의 스프라이트렌더러 가져옴.
@@ -33,6 +37,8 @@ public abstract class ButtonObject : MonoBehaviour
         // 충돌 중인 플레이어가 있다면, 버튼을 누름.
         if (collidedPlayers.Count > 0)
         {
+            sfxManager.PlayButtonSound();
+
             buttonSpriteRenderer.sprite = pushedButtonSprite;
             PushButton();   // 버튼 누름.
         }

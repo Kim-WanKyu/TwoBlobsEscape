@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerSwapper : MonoBehaviour
 {
+    private SfxManager sfxManager; // 효과음 재생을 위한 매니저 추가.
+
     [SerializeField] private GameObject playerBlue; // 파랑이.
     [SerializeField] private GameObject playerPink; // 분홍이.
     public GameObject GetPlayerBlue() { return playerBlue; }
@@ -18,6 +20,8 @@ public class PlayerSwapper : MonoBehaviour
 
     void Awake()
     {
+        sfxManager = GameManager.instance.gameObject.transform.GetChild(0).GetComponent<SfxManager>();
+
         // 플레이어의 활성화/비활성화 된 색 초기화.
         activatedColor = new Color(1, 1, 1);    // 컬러는 0~1이므로, (1,1,1)는 흰색.
         deactivatedColor = new Color(100 / 255f, 100 / 255f, 100 / 255f); // 0~255를 255로 나누어 0~1로 정규화. (회색).
@@ -40,6 +44,9 @@ public class PlayerSwapper : MonoBehaviour
             // C키(플레이어 변경 키) 누르면,
             if (Input.GetKeyDown(KeySetting.keys[KeyAction.SWAP]))
             {
+                // 스왑 효과음 재생.
+                sfxManager.PlaySwapSound();
+
                 SwapPlayer();
             }
         }
