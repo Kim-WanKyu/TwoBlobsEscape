@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("GameManager");
         if (instance == null)
         {
             instance = this;
@@ -43,6 +42,7 @@ public class GameManager : MonoBehaviour
         instance.IsGameover = false;
         instance.IsClear = false;
         instance.IsPause = false;
+        instance.IsPlayingMiniGame = false;
         LevelCount = 2; //임시로 2스테이지까지만,
     }
 
