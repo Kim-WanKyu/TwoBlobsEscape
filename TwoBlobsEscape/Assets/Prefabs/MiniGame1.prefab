@@ -118,6 +118,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FruitsMiniGame
       objectReference: {fileID: 0}
+    - target: {fileID: 5422579636717643896, guid: 99a084b25f1258144934e5a24554d2a0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5422579636717643903, guid: 99a084b25f1258144934e5a24554d2a0, type: 3}
       propertyPath: m_Pivot.x
       value: 0

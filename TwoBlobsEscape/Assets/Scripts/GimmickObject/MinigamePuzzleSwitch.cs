@@ -14,7 +14,7 @@ public class MinigamePuzzleSwitch : SwitchObject
 
     WaitForSecondsRealtime waitSec;
 
-    FruitsPuzzle puzzle;
+    Puzzle puzzle;
 
     private bool isActivate;
 
@@ -23,10 +23,12 @@ public class MinigamePuzzleSwitch : SwitchObject
         isActivate = false;
 
         minigame.SetActive(false);
-        puzzle = minigame.transform.GetChild(0).GetChild(0).GetComponent<FruitsPuzzle>();
+        puzzle = minigame.transform.GetChild(0).GetChild(0).GetComponent<Puzzle>();
         switchSpriteRenderer = GetComponent<SpriteRenderer>();
 
         switchSpriteRenderer.sprite = offSwitchSprite;
+
+        waitSec = new WaitForSecondsRealtime(0.2f);
     }
 
     public override void ControlSwitch()

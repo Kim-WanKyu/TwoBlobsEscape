@@ -2,9 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.VFX;
 
-public class FruitsPuzzle : Puzzle
+public class LineMatchingPuzzle : Puzzle
 {
     private void Awake()
     {
@@ -12,8 +11,8 @@ public class FruitsPuzzle : Puzzle
         PuzzlePieceSet = transform.GetChild(1).gameObject;
         PuzzleMovingSet = transform.GetChild(2).gameObject;
 
-        DefaultPiecesPosSerial = new int[8];
-        DefaultPosSerial = new int[8];
+        DefaultPiecesPosSerial = new int[3];
+        DefaultPosSerial = new int[3];
 
         RandomizeSerial(DefaultPiecesPosSerial);
         RandomizeSerial(DefaultPosSerial);
@@ -21,7 +20,7 @@ public class FruitsPuzzle : Puzzle
         // debug.
         string debugStrPieces = "";
         string debugStrPos = "";
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 3; i++)
         {
             debugStrPieces += (DefaultPiecesPosSerial[i] + ",");
             debugStrPos += (DefaultPosSerial[i] + ",");
@@ -35,7 +34,7 @@ public class FruitsPuzzle : Puzzle
     // 퍼즐 조각을 맞추는 영역의 위치를 번호에 맞게 초기화 하는 메소드.
     public override void InitPosSet()
     {
-        Vector2[] defaultPuzzlePos = { new Vector2(-300, 300), new Vector2(0, 300), new Vector2(300, 300), new Vector2(300, 0), new Vector2(300, -300), new Vector2(0, -300), new Vector2(-300, -300), new Vector2(-300, 0) };
+        Vector2[] defaultPuzzlePos = { new Vector2(0, 400), new Vector2(0, 0), new Vector2(0, -400) };
 
         // 퍼즐 조각 위치 초기화.
         for (int i = 0; i < PuzzlePosSet.transform.childCount; i++)
@@ -48,13 +47,13 @@ public class FruitsPuzzle : Puzzle
     {
         for (int i = 0; i < PuzzlePosSet.transform.childCount; i++)
         {
-            //퍼즐위치의 자식이 없으면 모든 퍼즐조각이 놓여지지 않은것입니다.
-            if (PuzzlePosSet.transform.GetChild(i).childCount == 0)
+            //퍼즐위치의 자식이 1개보다 같거나 적으면, 모든 퍼즐조각이 놓여지지 않은것입니다.
+            if (PuzzlePosSet.transform.GetChild(i).childCount <= 1)
             {
                 return;
             }
             //퍼즐조각의 번호와 퍼즐 위치 번호가 일치하지 않으면 퍼즐은 완성되지 않은것입니다.
-            if (PuzzlePosSet.transform.GetChild(i).GetChild(0).GetComponent<IPuzzlePiece>().PieceNum != i)
+            if (PuzzlePosSet.transform.GetChild(i).GetChild(1).GetComponent<IPuzzlePiece>().PieceNum != i)
             {
                 return;
             }
