@@ -1,12 +1,26 @@
+using JetBrains.Annotations;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class StartButtons : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject howToPlayAreaPanelObject;    // 설명서 영역 오브젝트.
-
     private SfxManager sfxManager;
+
+    [SerializeField] private GameObject howToPlayAreaPanelObject;    // 설명서 영역 오브젝트.
+    private GameObject howToPlayDetailObject;       // 설명서 설명 부분 오브젝트.
+
+    private int pageNum;    // 페이지 번호.
+    private int pageLen;    // 페이지 길이.
+
+    private void Awake()
+    {
+        howToPlayDetailObject = howToPlayAreaPanelObject.transform.GetChild(0).GetChild(1).gameObject;
+
+        pageNum = 0;
+        pageLen = howToPlayDetailObject.transform.childCount;
+    }
 
     // 씬 시작 시 초기화.
     private void Start()
@@ -18,6 +32,22 @@ public class StartButtons : MonoBehaviour
         {
             howToPlayAreaPanelObject.SetActive(false);
         }
+
+        // 설명서 설명 부분 오브젝트는 활성화된 상태로 초기화.
+        if (howToPlayDetailObject.activeSelf == false)
+        {
+            howToPlayDetailObject.SetActive(true);
+
+        }
+
+        // 설명서 설명 부분의 0페이지는 활성화된 상태로 초기화.
+        howToPlayDetailObject.transform.GetChild(0).gameObject.SetActive(true);
+        for (int i = 1; i < 4; i++)
+        {
+            // 설명서 설명 부분의 나머지 1~3페이지는 비활성화된 상태로 초기화.
+            howToPlayDetailObject.transform.GetChild(i).gameObject.SetActive(false);
+        }
+
     }
 
     // 버튼 스크립트들.
@@ -79,6 +109,33 @@ public class StartButtons : MonoBehaviour
     {
         sfxManager.PlayUIButtonClickSound();
         sfxManager.PlayUIWindowOffSound();
+        // 프로그램 종료.
         GameManager.instance.GameQuit();
+    }
+
+    // (NextPageButton 버튼).
+    public void NextPageButton()
+    {
+        sfxManager.PlayUIButtonClickSound();
+
+        // 현재 페이지를 비활성화하고,
+        howToPlayDetailObject.transform.GetChild(pageNum).gameObject.SetActive(false);
+        // 페이지를 증가시킨 다음,
+        pageNum = (pageNum + 1) % pageLen; // (0->1->2->3->0)
+        // 다음 페이지를 활성화.
+        howToPlayDetailObject.transform.GetChild(pageNum).gameObject.SetActive(true);
+    }
+
+    // (PrevPageButton 버튼).
+    public void PrevPageButton()
+    {
+        sfxManager.PlayUIButtonClickSound();
+
+        // 현재 페이지를 비활성화하고,
+        howToPlayDetailObject.transform.GetChild(pageNum).gameObject.SetActive(false);
+        // 페이지를 감소시킨 다음,
+        pageNum = (pageNum - 1 + pageLen) % pageLen; // (0->3->2->1->0)
+        // 이전 페이지를 활성화.
+        howToPlayDetailObject.transform.GetChild(pageNum).gameObject.SetActive(true);
     }
 }
