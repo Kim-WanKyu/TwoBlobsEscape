@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private AudioSource playerAudioSource;
+
     public static GameManager instance = null;
 
     // 게임의 상태에 대한 정보를 담는 변수들.
@@ -44,6 +46,8 @@ public class GameManager : MonoBehaviour
         instance.IsPause = false;
         instance.IsPlayingMiniGame = false;
         LevelCount = 2; //임시로 2스테이지까지만,
+
+        instance.playerAudioSource = instance.gameObject.transform.GetChild(0).GetChild(0).GetComponent<AudioSource>(); // 플레이어 전용 오디오소스 초기화.
     }
 
     // 게임 오버.
@@ -65,6 +69,8 @@ public class GameManager : MonoBehaviour
     {
         IsPause = true;
         Time.timeScale = 0f;    // 시간 흐르는 속도 0으로. (멈춤)
+
+        playerAudioSource.mute = true;  // 플레이어 소리 끔.
     }
 
     // 게임 재개. (일시정지 해제).
@@ -72,6 +78,8 @@ public class GameManager : MonoBehaviour
     {
         IsPause = false;
         Time.timeScale = 1f;    // 시간 흐르는 속도 1으로. (1배속)
+
+        playerAudioSource.mute = false;  // 플레이어 소리 켬.
     }
 
     // 미니게임 시작.
@@ -79,6 +87,8 @@ public class GameManager : MonoBehaviour
     {
         IsPlayingMiniGame = true;
         Time.timeScale = 0f;    // 시간 흐르는 속도 0으로. (멈춤)
+
+        playerAudioSource.mute = true;  // 플레이어 소리 끔.
     }
 
     // 미니게임 종료.
@@ -86,6 +96,8 @@ public class GameManager : MonoBehaviour
     {
         IsPlayingMiniGame = false;
         Time.timeScale = 1f;    // 시간 흐르는 속도 1으로. (1배속)
+
+        playerAudioSource.mute = false;  // 플레이어 소리 켬.
     }
 
     // 게임 종료. (프로그램 종료)
