@@ -6629,7 +6629,6 @@ GameObject:
   - component: {fileID: 1683626706}
   - component: {fileID: 1683626705}
   - component: {fileID: 1683626707}
-  - component: {fileID: 1683626708}
   m_Layer: 0
   m_Name: WaterTilemap
   m_TagString: Untagged
@@ -7024,19 +7023,6 @@ Rigidbody2D:
   m_CollisionDetection: 0
   m_Constraints: 0
 --- !u!114 &1683626707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1683626700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de45ad76f46cbd140bf055e7fac7bef4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerPink: {fileID: 1195487790}
---- !u!114 &1683626708
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
