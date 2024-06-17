@@ -103,9 +103,9 @@ public class GameManager : MonoBehaviour
     // 게임 종료. (프로그램 종료)
     public void GameQuit()
     {
-        Debug.Log("모든 시간 기록 삭제");
+        //Debug.Log("모든 시간 기록 삭제");
         //PlayerPrefs에 저장된 모든 데이터 삭제.
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
 
         Debug.Log("게임종료");
         // 프로그램 종료.
