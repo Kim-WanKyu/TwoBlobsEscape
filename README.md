@@ -7,8 +7,9 @@
 - [게임 설명](#게임-설명) 
    + [게임 소개 및 게임 목표](#게임-소개-및-게임-목표) 
    + [게임 조작 방법](#게임-조작-방법) 
-   + [인게임 화면](#인게임-화면)
- 
+   + [인게임 화면](#인게임-화면) 
+- [문서](#문서)
+
 ## 개요
 - 프로젝트 이름: Two Blobs Escape Game
 - 장르: 1인용, 2D 플랫포머, 퍼즐, 미로, 탈출
@@ -67,3 +68,7 @@
     <td>퍼즐3</td>
   </tr>
 </table>
+
+## 문서
+1. [기획서](https://github.com/Kim-WanKyu/TwoBlobsEscape/blob/main/documents/가상현실%20개인프로젝트%20기획서.pdf)
+2. [보고서](https://github.com/Kim-WanKyu/TwoBlobsEscape/blob/main/documents/가상현실%20개인프로젝트%20보고서.pdf)
