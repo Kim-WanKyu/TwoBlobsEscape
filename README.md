@@ -67,9 +67,3 @@
     <td>퍼즐3</td>
   </tr>
 </table>
-
-## 문서
-### 기획서
-[기획서 다운로드](https://github.com/Kim-WanKyu/TwoBlobsEscape/blob/main/%EA%B0%80%EC%83%81%ED%98%84%EC%8B%A4_201901769-%EA%B9%80%EC%99%84%EA%B7%9C_%EA%B0%9C%EC%9D%B8%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8_%EA%B8%B0%ED%9A%8D%EC%84%9C.pdf)
-### 보고서
-[보고서 다운로드](https://github.com/Kim-WanKyu/TwoBlobsEscape/blob/main/%EA%B0%80%EC%83%81%ED%98%84%EC%8B%A4_201901769-%EA%B9%80%EC%99%84%EA%B7%9C_%EA%B0%9C%EC%9D%B8%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8_%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf)
